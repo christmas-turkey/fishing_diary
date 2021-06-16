@@ -6,3 +6,7 @@ export const navigationRef = React.createRef()
 export function openDrawer() {
   navigationRef.current.dispatch(DrawerActions.toggleDrawer())
 }
+
+export function navigate(route) {
+  navigationRef.current.navigate(route)
+}

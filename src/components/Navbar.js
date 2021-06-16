@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons'
-import { openDrawer } from '../screens/rootNavigation';
+import { openDrawer } from '../navigation/rootNavigation';
 
 export const Navbar = () => {
   
