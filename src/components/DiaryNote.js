@@ -9,9 +9,17 @@ export const DiaryNote = ({item_data}) => {
       <View style={styles.informationGroup}>
         <FontAwesome color="#fff" size={25} name='calendar-check-o' />
         <View style={{marginLeft: 10}}>
-          <Text style={styles.label}>{item_data.label}</Text>
-          <Text style={styles.weight}><Ionicons name="md-time" /> {item_data.date}</Text>
-          <Text style={styles.location}><Entypo name="location-pin" /> {item_data.location}</Text>
+          <Text style={styles.label}>
+            {item_data.label.slice(0, 30) + (item_data.label.length > 30 ? '...' : '')}
+          </Text>
+          <Text style={styles.weight}>
+            <Ionicons name="md-time" />
+            {item_data.date}
+          </Text>
+          <Text style={styles.location}>
+            <Entypo name="location-pin" />
+            {item_data.location.slice(0, 30) + (item_data.location.length > 30 ? '...' : '')}
+          </Text>
         </View>
       </View>
       <FontAwesome5 color='#fff' size={25} name="arrow-right" />
@@ -21,8 +29,8 @@ export const DiaryNote = ({item_data}) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 90,
-    backgroundColor: 'gray',
+    height: 100,
+    backgroundColor: '#47597E',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

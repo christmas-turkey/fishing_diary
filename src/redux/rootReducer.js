@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import { diaryNotesReducer } from './reducers/DiaryReducer';
+import { storageReducer } from './reducers/storageReducer';
 
 export const rootReducer = combineReducers({
-  diaryNotes: diaryNotesReducer
+  storageItems: storageReducer
 })

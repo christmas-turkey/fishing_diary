@@ -1,17 +1,15 @@
 import { UPDATE_DIARY_NOTES } from '../constants/constants'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StorageObject } from '../../utils/storageUtils';
 
+
+const storage_object = new StorageObject('diary_notes')
 
 export function save_diary_note(diaryNote) {
   return async (dispatch) => {
 
-    const fetched_data = JSON.parse(await AsyncStorage.getItem('diary_notes'))
+    const updated_data = await storage_object.pushValue(diaryNote)
 
-    fetched_data.push(diaryNote)
-
-    await AsyncStorage.setItem('diary_notes', JSON.stringify(fetched_data))
-
-    dispatch({type: UPDATE_DIARY_NOTES, payload: fetched_data})
+    dispatch({type: UPDATE_DIARY_NOTES, payload: updated_data})
     
   }
 }
@@ -21,13 +19,8 @@ export function fetch_diary_notes() {
 
   return async (dispatch) => {
 
-    if (!await AsyncStorage.getItem('diary_notes')) {
-      await AsyncStorage.setItem('diary_notes', '[]')
-      dispatch({type: UPDATE_DIARY_NOTES, payload: []})
-    } else {
-      const fetched_data = JSON.parse(await AsyncStorage.getItem('diary_notes'))
-      dispatch({type: UPDATE_DIARY_NOTES, payload: fetched_data})
-    }
-
+    const fetched_data = await storage_object.getStorageObject()
+    dispatch({type: UPDATE_DIARY_NOTES, payload: fetched_data})
+    
   }
 }

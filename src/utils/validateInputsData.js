@@ -1,7 +1,6 @@
-import React from 'react';
 import { Alert } from 'react-native';
 
-export const validateInputsData = inputsData => {
+export const validateInputsData = (inputsData) => {
 
   for (let input of inputsData) {
     if (!input.trim()) {

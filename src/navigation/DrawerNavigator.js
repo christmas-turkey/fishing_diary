@@ -5,6 +5,7 @@ import { Diary } from './../screens/Diary';
 import { Goals } from './../screens/Goals';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import React from 'react';
+import { AddGoal } from './../screens/AddGoal';
 import { AddDiaryNote } from './../screens/AddDiaryNote';
 
 const Drawer = createDrawerNavigator()
@@ -28,14 +29,17 @@ export const DrawerNavigator = () => {
     <Drawer.Navigator
        initialRouteName="Main"
        drawerContent={props => {
+
+        const hiddenRouteNames = ['Add diary note', 'Add goal']
+        
         const filteredProps = {
           ...props,
           state: {
             ...props.state,
             routeNames: props.state.routeNames.filter(routeName => {
-              routeName !== 'Add diary note';
+              !hiddenRouteNames.includes(routeName);
             }),
-            routes: props.state.routes.filter(route => route.name !== 'Add diary note'),
+            routes: props.state.routes.filter(route => !hiddenRouteNames.includes(route.name)),
           },
         };
 
@@ -52,6 +56,7 @@ export const DrawerNavigator = () => {
     <Drawer.Screen name="Photos" component={Photos} options={getScreenOptions('Photos', 'image')} />
     <Drawer.Screen name="Fishing goals" component={Goals} options={getScreenOptions('Goals', 'bullseye')} />
     <Drawer.Screen name="Add diary note" component={AddDiaryNote} />
+    <Drawer.Screen name="Add goal" component={AddGoal} />
 
   </Drawer.Navigator>
   )
