@@ -19,7 +19,7 @@ export class StorageObject {
     
     let storage_object = await this.getStorageObject()
     
-    const newStorageObject = storage_object.filter(value => value !== value_to_delete)
+    const newStorageObject = storage_object.filter(value => value.id !== value_to_delete.id)
     await AsyncStorage.setItem(this.key, JSON.stringify(newStorageObject))
 
     return newStorageObject

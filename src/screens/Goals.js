@@ -24,7 +24,7 @@ export const Goals = () => {
       <CustomFlatList
       refreshEvent={() => dispatch(fetch_goals())}
       data={goals}
-      keyExtractor={() => Math.round(Math.random() * 10000000).toString()}
+      keyExtractor={item => item.id}
       renderItem={({item}) => <Goal item_data={item} />} />
       <RoundCornerButton text="+" onPress={() => navigate('Add goal')} />
     </View>

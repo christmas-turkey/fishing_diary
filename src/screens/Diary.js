@@ -24,7 +24,7 @@ export const Diary = () => {
       <CustomFlatList
       refreshEvent={() => dispatch(fetch_diary_notes())}
       data={diaryNotes}
-      keyExtractor={() => Math.round(Math.random() * 10000000).toString()}
+      keyExtractor={item => item.id}
       renderItem={({item}) => <DiaryNote item_data={item} />} />
       <RoundCornerButton text="+" onPress={() => navigate('Add diary note')} />
     </View>

@@ -24,3 +24,12 @@ export function fetch_photos() {
 
   }
 }
+
+export function remove_photo(photo) {
+  return async (dispatch) => {
+
+    const updated_data = await storage_object.removeValue(photo)
+    dispatch({type: UPDATE_GOALS_LIST, payload: updated_data})
+
+  }
+}

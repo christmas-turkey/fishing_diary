@@ -24,3 +24,12 @@ export function fetch_goals() {
 
   }
 }
+
+export function remove_goal(goal) {
+  return async (dispatch) => {
+
+    const updated_data = await storage_object.removeValue(goal)
+    dispatch({type: UPDATE_GOALS_LIST, payload: updated_data})
+
+  }
+}

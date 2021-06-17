@@ -1,9 +1,14 @@
-import { Entypo, FontAwesome, FontAwesome5, AntDesign } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
+import { remove_goal } from './../redux/actions/GoalsActions';
 
 export const Goal = ({item_data}) => {
+  
+  const dispatch = useDispatch()
+
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.rootContainer}>
       <View style={styles.innerContainer}>
@@ -14,7 +19,9 @@ export const Goal = ({item_data}) => {
           </Text>
         </View>
       </View>
-      <FontAwesome5 color='#fff' size={25} name="times" />
+      <TouchableOpacity onPress={() => dispatch(remove_goal(item_data))}>
+        <FontAwesome5 color='#fff' size={25} name="times" />
+      </TouchableOpacity>
     </TouchableOpacity>
   )
 }

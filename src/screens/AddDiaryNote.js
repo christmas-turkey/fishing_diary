@@ -39,6 +39,7 @@ export const AddDiaryNote = () => {
     if (validateInputsData([label, weight, location, description])) {
       navigate('Diary')
       dispatch(save_diary_note({
+        id: (Date.now() * Math.random()).toString(),
         label: label,
         weight: weight,
         description: description,

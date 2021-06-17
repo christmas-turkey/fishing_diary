@@ -36,6 +36,7 @@ export const AddGoal = () => {
     if (validateInputsData([description])) {
       navigate('Fishing goals')
       dispatch(save_goal({
+        id: (Date.now() * Math.random()).toString(),
         description: description,
         date: date.toLocaleDateString()
       }))
