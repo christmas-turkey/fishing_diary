@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, TouchableHighlight, TextInput, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RoundCornerButton } from '../components/RoundCornerButton';
 import { CustomFlatList } from '../components/CustomFlatList';
 import { fetch_photos, remove_photo, save_photo } from '../redux/actions/PhotosActions';
 import Modal from 'react-native-modal'
-import { MaterialIcons, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker'
 import { Camera } from './../components/Camera';
 
@@ -18,8 +18,13 @@ const FullPhoto = props => {
       animationOut={'fadeOut'}
       isVisible={props.isVisible}>
       
-      <TouchableOpacity activeOpacity={1} onPress={props.onClose} style={{width: '100%', height: '100%'}}>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={props.onClose}
+        style={{width: '100%', height: '100%'}}>
+        
         <Image resizeMode='contain' style={{flex: 1}} source={{uri: props.uri}} />
+      
       </TouchableOpacity>
     </Modal>
   )
@@ -65,17 +70,22 @@ export const Photos = () => {
       renderItem={({item}) =>  {
 
         return (
-          <TouchableOpacity activeOpacity={0.8} style={styles.photo} onLongPress={() => {
-            setFullPhotoURI(item.uri)
-            setFullPhotoVisible(true)
-          }}>
+          <TouchableOpacity 
+            activeOpacity={0.8}
+            style={styles.photo}
+            onPress={() => {
+              setFullPhotoURI(item.uri)
+              setFullPhotoVisible(true)
+            }}
+          >
+
             <Image style={{flex: 1, borderRadius: 20}} source={{uri: item.uri}} />
             
-            <TouchableOpacity style={{position: 'absolute', top: 20, right: 20}} onPress={() => dispatch(remove_photo(item))}>
+            <TouchableOpacity
+              style={{position: 'absolute', top: 20, right: 20}}
+              onPress={() => dispatch(remove_photo(item))}>
               <FontAwesome5 color='#fff' size={25} name="times" />
             </TouchableOpacity>
-
-          
           
           </TouchableOpacity>
         )

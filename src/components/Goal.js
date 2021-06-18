@@ -1,22 +1,26 @@
-import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { remove_goal } from './../redux/actions/GoalsActions';
 
-export const Goal = ({item_data}) => {
+export const Goal = ({item_data, ...props}) => {
   
   const dispatch = useDispatch()
 
   return (
-    <TouchableOpacity activeOpacity={0.8} style={styles.rootContainer}>
+    <TouchableOpacity onPress={props.onPress} activeOpacity={0.8} style={styles.rootContainer}>
       <View style={styles.innerContainer}>
         <FontAwesome color="#fff" size={25} name="check-square" />
-        <View style={{marginLeft: 10}}>
+        <View style={styles.dataGroup}>
           <Text style={styles.label}>
             {item_data.description.slice(0, 120) + (item_data.description.length > 120 ? '...' : '')}
           </Text>
+            {Date.parse(item_data.date) - Date.now() > 0
+              ? <Text style={{...styles.text,marginTop: 10}}>
+                <Ionicons name="md-time" /> {item_data.date}</Text>
+              : <Text style={{...styles.text, marginTop: 10, color: 'orange'}}>Too late</Text> 
+            }
         </View>
       </View>
       <TouchableOpacity onPress={() => dispatch(remove_goal(item_data))}>
@@ -48,9 +52,15 @@ const styles = StyleSheet.create({
 
   label: {
     fontSize: 15,
-    margin: 10,
-    marginTop: 0,
     color: '#fff',
     fontWeight: 'bold'
   },
+
+  text: {
+    color: '#fff'
+  },
+
+  dataGroup: {
+    marginLeft: 10
+  }
 })
