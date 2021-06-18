@@ -1,8 +1,148 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, TouchableHighlight, TextInput, Image } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { RoundCornerButton } from '../components/RoundCornerButton';
+import { CustomFlatList } from '../components/CustomFlatList';
+import { fetch_photos, remove_photo, save_photo } from '../redux/actions/PhotosActions';
+import Modal from 'react-native-modal'
+import { MaterialIcons, FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import * as DocumentPicker from 'expo-document-picker'
+import { Camera } from './../components/Camera';
 
-export const Photos = ({navigation}) => {
+const FullPhoto = props => {
+
   return (
-    <View></View>
+    <Modal
+      style={styles.fullPhoto}
+      animationIn={'fadeIn'}
+      animationOut={'fadeOut'}
+      isVisible={props.isVisible}>
+      
+      <TouchableOpacity activeOpacity={1} onPress={props.onClose} style={{width: '100%', height: '100%'}}>
+        <Image resizeMode='contain' style={{flex: 1}} source={{uri: props.uri}} />
+      </TouchableOpacity>
+    </Modal>
   )
 }
+
+export const Photos = () => {
+
+  const [bottomModalOpened, setBottomModalOpened] = useState(false)
+  const [isCameraVisible, setCameraVisible] = useState(false)
+  const [fullPhotoURI, setFullPhotoURI] = useState('')
+  const [fullPhotoVisible, setFullPhotoVisible] = useState(false)
+  
+  const dispatch = useDispatch()
+  const photos = useSelector(state => state.storageItems.photos)
+  const [dataLoaded, setDataLoaded] = useState(false)
+
+  if (!dataLoaded) {
+
+    dispatch(fetch_photos())
+    setDataLoaded(true)
+  }
+
+  const pickFile = async () => {
+    const local_image = await DocumentPicker.getDocumentAsync({
+      type: 'image/*'
+    })
+
+    if (local_image.uri) {
+      dispatch(save_photo({
+        id: (Date.now() * Math.random()).toString(),
+        uri: local_image.uri
+      }))
+    }
+    
+  }
+
+  return (
+    <View style={styles.container}>
+      <CustomFlatList
+      refreshEvent={() => dispatch(fetch_photos())}
+      data={photos}
+      keyExtractor={item => item.id}
+      renderItem={({item}) =>  {
+
+        return (
+          <TouchableOpacity activeOpacity={0.8} style={styles.photo} onLongPress={() => {
+            setFullPhotoURI(item.uri)
+            setFullPhotoVisible(true)
+          }}>
+            <Image style={{flex: 1, borderRadius: 20}} source={{uri: item.uri}} />
+            
+            <TouchableOpacity style={{position: 'absolute', top: 20, right: 20}} onPress={() => dispatch(remove_photo(item))}>
+              <FontAwesome5 color='#fff' size={25} name="times" />
+            </TouchableOpacity>
+
+          
+          
+          </TouchableOpacity>
+        )
+
+      }} />
+      <RoundCornerButton text="+" onPress={() => setBottomModalOpened(true)} />
+
+      <Modal
+        style={styles.bottomModal} 
+        isVisible={bottomModalOpened}
+        onBackdropPress={() => setBottomModalOpened(false)}>
+
+        <View style={styles.bottomModalContent}>
+          <TouchableOpacity
+            style={styles.modalButton}
+            onPress={() => setCameraVisible(true)}>
+
+            <MaterialIcons size={18} name='add-a-photo' />
+            <Text>  Make photo</Text>
+
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.modalButton} 
+            onPress={pickFile}>
+
+            <MaterialIcons size={18} name='add-photo-alternate' /> 
+            <Text>  Load from gallery</Text>
+
+          </TouchableOpacity>
+        </View>
+
+      </Modal>
+      <FullPhoto isVisible={fullPhotoVisible} onClose={() => setFullPhotoVisible(false)} uri={fullPhotoURI} />
+      <Camera onClose={() => setCameraVisible(false)} isVisible={isCameraVisible} />
+       
+      
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+
+  fullPhoto: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0
+  },
+
+  photo: {
+    height: 300,
+    width: '90%',
+    margin: 15
+  },
+
+  modalButton: {
+    padding: 20,
+    flexDirection: 'row'
+  },
+
+  bottomModalContent: {
+    backgroundColor: '#D2D2D2'
+  }
+})

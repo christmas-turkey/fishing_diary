@@ -29,7 +29,7 @@ export function remove_photo(photo) {
   return async (dispatch) => {
 
     const updated_data = await storage_object.removeValue(photo)
-    dispatch({type: UPDATE_GOALS_LIST, payload: updated_data})
+    dispatch({type: UPDATE_PHOTOS_COLLECTION, payload: updated_data})
 
   }
 }
