@@ -31,13 +31,9 @@ export const Camera = props => {
     }))
    }
 
-  if (hasPermission === null) {
+  if (hasPermission === null || hasPermission === false) {
     return <View />;
   }
-  if (hasPermission === false) {
-    onClose()
-  }
-  
 
   return (
     <Modal
@@ -47,13 +43,13 @@ export const Camera = props => {
 
           <TouchableOpacity
             onPress={props.onClose}
-            style={{position: 'absolute', top: 20, left: 20}}>
+            style={styles.closeButton}>
 
             <AntDesign size={50} name="arrowleft" />
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={{position: 'absolute', bottom: 20, left: 20}}
+            style={styles.reverseCameraButton}
             onPress={() => {
               setType(
                 type === ExpoCamera.Constants.Type.back
@@ -74,6 +70,8 @@ export const Camera = props => {
   );
 }
 
+const BUTTONS_MARGIN = 20
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -92,7 +90,17 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 5,
     position: 'absolute',
-    bottom: 20,
+    bottom: BUTTONS_MARGIN,
     left: (Dimensions.get('window').width / 2) - 40
   },
+
+  reverseCameraButton: {
+    position: 'absolute', 
+    bottom: BUTTONS_MARGIN, left: BUTTONS_MARGIN
+  },
+
+  closeButton: {
+    position: 'absolute',
+    top: BUTTONS_MARGIN, left: BUTTONS_MARGIN
+  }
 });

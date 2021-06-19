@@ -24,3 +24,12 @@ export function fetch_diary_notes() {
     
   }
 }
+
+export function remove_diary_note(diary_note) {
+  return async (dispatch) => {
+
+    const updated_data = await storage_object.removeValue(diary_note)
+    dispatch({type: UPDATE_DIARY_NOTES, payload: updated_data})
+
+  }
+}

@@ -3,25 +3,29 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export const DiaryNote = ({item_data}) => {
+export const DiaryNote = ({data, ...props}) => {
   return (
-    <TouchableOpacity activeOpacity={0.8} style={styles.container}>
-      <View style={styles.informationGroup}>
+    <TouchableOpacity 
+      onPress={props.onPress} 
+      activeOpacity={0.8} 
+      style={styles.container}>
+      
+      <View style={styles.innerContainer}>
         <FontAwesome color="#fff" size={25} name='calendar-check-o' />
         <View style={{marginLeft: 10}}>
           <Text style={styles.label}>
-            {item_data.label.slice(0, 30) + (item_data.label.length > 30 ? '...' : '')}
+            {data.label.slice(0, 30) + (data.label.length > 30 ? '...' : '')}
           </Text>
-          <Text style={styles.weight}>
-            <Ionicons name="md-time" />
-            {item_data.date}
+          <Text style={styles.text}>
+            <Ionicons name="md-time" />{data.date}
           </Text>
-          <Text style={styles.location}>
+          <Text style={styles.text}>
             <Entypo name="location-pin" />
-            {item_data.location.slice(0, 30) + (item_data.location.length > 30 ? '...' : '')}
+            {data.location.slice(0, 30) + (data.location.length > 30 ? '...' : '')}
           </Text>
         </View>
       </View>
+
       <FontAwesome5 color='#fff' size={25} name="arrow-right" />
     </TouchableOpacity>
   )
@@ -41,24 +45,23 @@ const styles = StyleSheet.create({
     margin: 20,
   },
 
-  informationGroup: {
+  innerContainer: {
     flexDirection: 'row',
     alignItems: 'center'
   },
 
-  label: {
-    fontSize: 15,
-    margin: 10,
-    marginTop: 0,
-    color: '#fff',
-    fontWeight: 'bold'
+  get label() {
+    return {
+      ...this.text,
+      fontSize: 15,
+      marginTop: 0,
+      marginBottom: 10,
+      fontWeight: 'bold'
+
+    }
   },
 
-  weight: {
-    color: '#fff',
-    marginLeft: 10,
-  },
-  location: {
+  text: {
     color: '#fff',
     marginLeft: 10
   }

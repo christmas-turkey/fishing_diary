@@ -7,6 +7,6 @@ export function openDrawer() {
   navigationRef.current.dispatch(DrawerActions.toggleDrawer())
 }
 
-export function navigate(route) {
-  navigationRef.current.navigate(route)
+export function navigate(route, params) {
+  navigationRef.current.navigate(route, params)
 }

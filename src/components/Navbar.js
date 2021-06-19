@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     fontSize: 25,
     color: '#fff',
-    fontFamily: 'roboto-medium'
+    fontFamily: 'OpenSans-bold'
   },
   bars: {
     fontSize: 30,

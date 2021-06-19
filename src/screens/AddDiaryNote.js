@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import { Platform } from 'react-native';
+import { Platform, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker'
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { navigate } from './../navigation/rootNavigation';
 import { useDispatch } from 'react-redux';
 import { save_diary_note } from '../redux/actions/DiaryActions';
@@ -19,6 +19,7 @@ export const AddDiaryNote = () => {
   const [weight, setWeight] = useState('')
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
+  const [datePlaceholder, setDatePlaceholder] = useState('Choose date') 
 
   const dispatch = useDispatch()
 
@@ -26,6 +27,7 @@ export const AddDiaryNote = () => {
     const current_date = selectedDate || date
     setShow(Platform.OS === 'ios')
     setDate(current_date)
+    setDatePlaceholder(current_date.toLocaleDateString())
   }
 
   const showMode = (currentMode) => {
@@ -75,12 +77,15 @@ export const AddDiaryNote = () => {
           placeholder="Enter description"
           numberOfLines={10}
           onChangeText={text => setDescription(text)}/>
-      <FontAwesome5.Button
-        name="calendar"
-        backgroundColor="royalblue"
-        onPress={() => showMode('date')}>
-        Select date
-      </FontAwesome5.Button>
+      
+        <TouchableOpacity 
+          activeOpacity={0.8}
+          style={styles.dateButton}
+          onPress={() => showMode('date')}>
+          
+          <FontAwesome color="#fff" name="calendar-check-o" />  
+          <Text style={{color: '#fff', fontWeight: 'bold'}}>  {datePlaceholder}</Text>
+        </TouchableOpacity>
         {show && (
         <DateTimePicker
           testID="dateTimePicker"
@@ -94,3 +99,15 @@ export const AddDiaryNote = () => {
     </CustomForm>
   )
 }
+
+const styles = StyleSheet.create({
+  dateButton: {
+    height: 50,
+    width: '100%',
+    flexDirection: 'row',
+    backgroundColor: '#47597E',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15
+  }
+})

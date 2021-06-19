@@ -15,14 +15,16 @@ export const CustomForm = props => {
         )
       })}
       <TouchableOpacity
-        style={{...styles.roundButton, backgroundColor: 'red'}}
+        activeOpacity={0.8}
+        style={{...styles.btn, backgroundColor: '#293B5F'}}
         onPress={props.onCancel} >
         <Text style={{color: '#fff', fontWeight: 'bold'}}>Cancel</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
-        style={{...styles.roundButton,
+      <TouchableOpacity
+        activeOpacity={0.8} 
+        style={{...styles.btn,
                 marginBottom: 40,
-                backgroundColor: 'green' }}
+                backgroundColor: '#00A900' }}
         onPress={props.onSubmit} >
         <Text style={{color: '#fff', fontWeight: 'bold'}}>Save</Text>
       </TouchableOpacity>
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
     margin: 20
   },
 
-  roundButton: {
+  btn: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',

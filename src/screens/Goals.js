@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RoundCornerButton } from '../components/RoundCornerButton';
 import { fetch_goals } from '../redux/actions/GoalsActions';
 import { navigate } from './../navigation/rootNavigation';
 import { Goal } from './../components/Goal';
-import { CustomFlatList } from '../components/CustomFlatList';
 import Modal from 'react-native-modal';
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 
@@ -24,8 +23,8 @@ const DetailGoalModal = props => {
         </TouchableOpacity>
 
         <ScrollView style={{marginTop: 30}}>
-          <Text style={{marginBottom: 20}}><Ionicons name="md-time" /> {props.data.date}</Text>
-          <Text>{props.data.description}</Text>
+          <Text style={styles.modalText}><Ionicons name="md-time" /> {props.data.date}</Text>
+          <Text style={styles.modalText}>{props.data.description}</Text>
         </ScrollView>
       </View>
 
@@ -49,15 +48,14 @@ export const Goals = () => {
 
   return (
     <View style={styles.container}>
-      <CustomFlatList
-      refreshEvent={() => dispatch(fetch_goals())}
+      <FlatList
       data={goals}
       keyExtractor={item => item.id}
       renderItem={({item}) => {
 
         return (
           <Goal 
-            item_data={item} 
+            data={item} 
             onPress={() => {
               setDetailGoalModalData(item)
               setDetailGoalModalVisible(true)
@@ -66,7 +64,10 @@ export const Goals = () => {
 
       }} />
       <RoundCornerButton text="+" onPress={() => navigate('Add goal')} />
-      <DetailGoalModal onClose={() => setDetailGoalModalVisible(false)} data={detailGoalModalData} isVisible={detailGoalModalVisible} />
+      <DetailGoalModal 
+        onClose={() => setDetailGoalModalVisible(false)}
+        data={detailGoalModalData}
+        isVisible={detailGoalModalVisible} />
     </View>
   )
 }
@@ -87,5 +88,10 @@ const styles = StyleSheet.create({
   detailGoalModal: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  modalText: {
+    fontFamily: 'roboto-medium',
+    marginBottom: 20
   }
 })

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { DiaryNote } from '../components/DiaryNote';
 import { fetch_diary_notes } from '../redux/actions/DiaryActions';
 import { navigate } from './../navigation/rootNavigation';
 import { RoundCornerButton } from './../components/RoundCornerButton';
-import { CustomFlatList } from '../components/CustomFlatList';
 
 export const Diary = () => {
   
@@ -21,11 +20,16 @@ export const Diary = () => {
 
   return (
     <View style={styles.container}>
-      <CustomFlatList
-      refreshEvent={() => dispatch(fetch_diary_notes())}
+      <FlatList
       data={diaryNotes}
       keyExtractor={item => item.id}
-      renderItem={({item}) => <DiaryNote item_data={item} />} />
+      renderItem={({item}) => {
+       return (
+        <DiaryNote
+          onPress={() => navigate('Detail diary note', item)}
+          data={item} />
+       )
+      }} />
       <RoundCornerButton text="+" onPress={() => navigate('Add diary note')} />
     </View>
   )

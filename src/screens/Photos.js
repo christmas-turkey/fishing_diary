@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RoundCornerButton } from '../components/RoundCornerButton';
-import { CustomFlatList } from '../components/CustomFlatList';
 import { fetch_photos, remove_photo, save_photo } from '../redux/actions/PhotosActions';
 import Modal from 'react-native-modal'
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
@@ -63,8 +62,7 @@ export const Photos = () => {
 
   return (
     <View style={styles.container}>
-      <CustomFlatList
-      refreshEvent={() => dispatch(fetch_photos())}
+      <FlatList
       data={photos}
       keyExtractor={item => item.id}
       renderItem={({item}) =>  {
@@ -72,17 +70,17 @@ export const Photos = () => {
         return (
           <TouchableOpacity 
             activeOpacity={0.8}
-            style={styles.photo}
+            style={styles.photoContainer}
             onPress={() => {
               setFullPhotoURI(item.uri)
               setFullPhotoVisible(true)
             }}
           >
 
-            <Image style={{flex: 1, borderRadius: 20}} source={{uri: item.uri}} />
+            <Image style={styles.photo} source={{uri: item.uri}} />
             
             <TouchableOpacity
-              style={{position: 'absolute', top: 20, right: 20}}
+              style={styles.removePhoto}
               onPress={() => dispatch(remove_photo(item))}>
               <FontAwesome5 color='#fff' size={25} name="times" />
             </TouchableOpacity>
@@ -118,8 +116,13 @@ export const Photos = () => {
         </View>
 
       </Modal>
-      <FullPhoto isVisible={fullPhotoVisible} onClose={() => setFullPhotoVisible(false)} uri={fullPhotoURI} />
-      <Camera onClose={() => setCameraVisible(false)} isVisible={isCameraVisible} />
+      <FullPhoto
+        isVisible={fullPhotoVisible} 
+        onClose={() => setFullPhotoVisible(false)} uri={fullPhotoURI} />
+
+      <Camera 
+        onClose={() => setCameraVisible(false)}
+        isVisible={isCameraVisible} />
        
       
     </View>
@@ -141,10 +144,21 @@ const styles = StyleSheet.create({
     margin: 0
   },
 
-  photo: {
+  photoContainer: {
     height: 300,
     width: '90%',
     margin: 15
+  },
+
+  photo: {
+    flex: 1,
+    borderRadius: 20
+  },
+
+  removePhoto: {
+    position: 'absolute', 
+    top: 20,
+    right: 20
   },
 
   modalButton: {
