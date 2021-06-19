@@ -12,7 +12,8 @@ export const Goal = ({data, ...props}) => {
     <TouchableOpacity
       onPress={props.onPress}
       activeOpacity={0.8} 
-      style={styles.rootContainer}>
+      style={styles.rootContainer}
+      onPress={props.onPress}>
 
       <View style={styles.innerContainer}>
         <FontAwesome color="#fff" size={25} name="check-square" />

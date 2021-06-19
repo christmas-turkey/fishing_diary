@@ -10,3 +10,7 @@ export function openDrawer() {
 export function navigate(route, params) {
   navigationRef.current.navigate(route, params)
 }
+
+export function goBack() {
+  navigationRef.current.goBack()
+}

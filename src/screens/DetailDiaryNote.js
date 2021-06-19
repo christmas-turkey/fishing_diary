@@ -1,7 +1,7 @@
 import { FontAwesome5, Entypo, FontAwesome } from '@expo/vector-icons';
 import React from 'react';
 import { ScrollView, Text, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { navigate } from './../navigation/rootNavigation';
+import { goBack } from './../navigation/rootNavigation';
 import { useDispatch } from 'react-redux';
 import { remove_diary_note } from '../redux/actions/DiaryActions';
 
@@ -13,7 +13,7 @@ export const DetailDiaryNote = ({route}) => {
 
   const deleteNote = () => {
     dispatch(remove_diary_note(item))
-    navigate('Diary')
+    goBack()
   }
 
   return (
@@ -34,13 +34,13 @@ export const DetailDiaryNote = ({route}) => {
       <View style={{marginTop: 20}}>
         <TouchableOpacity 
           style={styles.btn}
-          onPress={() => navigate('Diary')}>
-          <Text style={{color: '#fff', fontWeight: 'bold'}}>Go back</Text>
+          onPress={() => goBack()}>
+          <Text style={{color: '#fff', fontWeight: 'bold'}}><FontAwesome5 color="#fff" name="arrow-left" />  Go back</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={{...styles.btn, marginBottom: 60, backgroundColor: '#B50800'}}
           onPress={deleteNote}>
-          <Text style={{color: '#fff', fontWeight: 'bold'}}>Delete this note</Text>
+          <Text style={{color: '#fff', fontWeight: 'bold'}}><FontAwesome5 color="#fff" name="times" />  Delete this note</Text>
         </TouchableOpacity>
       </View>
 

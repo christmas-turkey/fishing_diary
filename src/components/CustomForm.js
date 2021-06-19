@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 export const CustomForm = props => {
 
@@ -18,7 +19,7 @@ export const CustomForm = props => {
         activeOpacity={0.8}
         style={{...styles.btn, backgroundColor: '#293B5F'}}
         onPress={props.onCancel} >
-        <Text style={{color: '#fff', fontWeight: 'bold'}}>Cancel</Text>
+        <Text style={{color: '#fff', fontWeight: 'bold'}}><FontAwesome5 color="#fff" name="arrow-left" />  Go back</Text>
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.8} 
@@ -26,7 +27,7 @@ export const CustomForm = props => {
                 marginBottom: 40,
                 backgroundColor: '#00A900' }}
         onPress={props.onSubmit} >
-        <Text style={{color: '#fff', fontWeight: 'bold'}}>Save</Text>
+        <Text style={{color: '#fff', fontWeight: 'bold'}}><FontAwesome5 color="#fff" name="check" />  Save</Text>
       </TouchableOpacity>
     </ScrollView>
   )

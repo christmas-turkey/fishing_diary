@@ -1,36 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RoundCornerButton } from '../components/RoundCornerButton';
 import { fetch_goals } from '../redux/actions/GoalsActions';
 import { navigate } from './../navigation/rootNavigation';
 import { Goal } from './../components/Goal';
-import Modal from 'react-native-modal';
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
-
-const DetailGoalModal = props => {
-  return (
-    <Modal
-      style={styles.detailGoalModal}
-      animationIn={'fadeIn'}
-      animationOut={'fadeOut'}
-      isVisible={props.isVisible}>
-      
-      <View style={styles.detailGoalContent}>
-
-        <TouchableOpacity onPress={props.onClose}>
-          <FontAwesome5 color='gray' size={25} name="times" />
-        </TouchableOpacity>
-
-        <ScrollView style={{marginTop: 30}}>
-          <Text style={styles.modalText}><Ionicons name="md-time" /> {props.data.date}</Text>
-          <Text style={styles.modalText}>{props.data.description}</Text>
-        </ScrollView>
-      </View>
-
-    </Modal>
-  )
-} 
+import { DetailGoalModal } from '../components/DetailGoalModal';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 export const Goals = () => {
   
@@ -46,8 +22,17 @@ export const Goals = () => {
     setDataLoaded(true)
   }
 
+  const checkGoalsPresence = () => {
+    if (!goals.length) {
+      return (
+        <Text style={styles.no_data}><MaterialCommunityIcons color="gray" size={25} name="folder-download" /> There are no goals</Text>
+      )
+    }
+  }
+
   return (
     <View style={styles.container}>
+      {checkGoalsPresence()}
       <FlatList
       data={goals}
       keyExtractor={item => item.id}
@@ -55,11 +40,12 @@ export const Goals = () => {
 
         return (
           <Goal 
-            data={item} 
+            data={item}
             onPress={() => {
               setDetailGoalModalData(item)
               setDetailGoalModalVisible(true)
-            }} />
+            }} 
+             />
         )
 
       }} />
@@ -77,21 +63,12 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
-  detailGoalContent: {
-    width: '100%',
-    height: '70%',
-    padding: 25,
-    backgroundColor: '#fff',
-    borderRadius: 20
-  },
-
-  detailGoalModal: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  modalText: {
+  no_data: {
+    position: 'absolute',
+    top: '40%',
+    fontSize: 20,
+    color: 'gray',
     fontFamily: 'roboto-medium',
-    marginBottom: 20
-  }
+    alignSelf: 'center',
+  },
 })

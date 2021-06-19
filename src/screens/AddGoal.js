@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Platform, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { FontAwesome } from '@expo/vector-icons';
-import { navigate } from './../navigation/rootNavigation';
+import { goBack } from './../navigation/rootNavigation';
 import { useDispatch } from 'react-redux';
 import { save_goal } from '../redux/actions/GoalsActions';
 import { CustomTextInput } from './../components/CustomTextInput';
@@ -36,7 +36,7 @@ export const AddGoal = () => {
 
   const saveGoal = () => {
     if (validateInputsData([description])) {
-      navigate('Fishing goals')
+      goBack()
       dispatch(save_goal({
         id: (Date.now() * Math.random()).toString(),
         description: description,
@@ -49,7 +49,7 @@ export const AddGoal = () => {
 
     <CustomForm 
       header="Add a goal"
-      onCancel={() => navigate('Fishing goals')}
+      onCancel={() => goBack()}
       onSubmit={saveGoal}>
 
       <CustomTextInput

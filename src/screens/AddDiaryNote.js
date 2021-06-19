@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Platform, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { FontAwesome } from '@expo/vector-icons';
-import { navigate } from './../navigation/rootNavigation';
+import { goBack } from './../navigation/rootNavigation';
 import { useDispatch } from 'react-redux';
 import { save_diary_note } from '../redux/actions/DiaryActions';
 import { CustomTextInput } from './../components/CustomTextInput';
@@ -39,7 +39,7 @@ export const AddDiaryNote = () => {
 
   const saveNote = () => {
     if (validateInputsData([label, weight, location, description])) {
-      navigate('Diary')
+      goBack()
       dispatch(save_diary_note({
         id: (Date.now() * Math.random()).toString(),
         label: label,
@@ -54,7 +54,7 @@ export const AddDiaryNote = () => {
   return (
     <CustomForm 
       header="Add diary note"
-      onCancel={() => navigate('Diary')}
+      onCancel={() => goBack()}
       onSubmit={saveNote}>
 
       <CustomTextInput
