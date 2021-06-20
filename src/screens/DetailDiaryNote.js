@@ -4,12 +4,15 @@ import { ScrollView, Text, StyleSheet, TouchableOpacity, View } from 'react-nati
 import { goBack } from './../navigation/rootNavigation';
 import { useDispatch } from 'react-redux';
 import { remove_diary_note } from '../redux/actions/DiaryActions';
+import { CustomRoundButton } from '../components/CustomRoundButton';
 
 
 export const DetailDiaryNote = ({route}) => {
 
   const item = route.params
   const dispatch = useDispatch()
+
+  const ICONS_SIZE = 15
 
   const deleteNote = () => {
     dispatch(remove_diary_note(item))
@@ -21,27 +24,25 @@ export const DetailDiaryNote = ({route}) => {
 
       <Text style={styles.label}>{ item.label }</Text>
       <Text style={styles.text}>
-        <FontAwesome5 size={15} name="weight" />  {item.weight } pounds
+        <Entypo size={ICONS_SIZE} name="location-pin" />  { item.location }
       </Text>
       <Text style={styles.text}>
-        <Entypo size={15} name="location-pin" />  { item.location }
-      </Text>
-      <Text style={styles.text}>
-        <FontAwesome size={15} name="calendar-check-o" />  { item.date }
+        <FontAwesome size={ICONS_SIZE} name="calendar-check-o" />  { item.date }
       </Text>
       <Text style={styles.text}>Description: { item.description }</Text>
       
-      <View style={{marginTop: 20}}>
-        <TouchableOpacity 
-          style={styles.btn}
-          onPress={() => goBack()}>
-          <Text style={{color: '#fff', fontWeight: 'bold'}}><FontAwesome5 color="#fff" name="arrow-left" />  Go back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={{...styles.btn, marginBottom: 60, backgroundColor: '#B50800'}}
-          onPress={deleteNote}>
-          <Text style={{color: '#fff', fontWeight: 'bold'}}><FontAwesome5 color="#fff" name="times" />  Delete this note</Text>
-        </TouchableOpacity>
+      <View style={{marginTop: 40}}>
+        <CustomRoundButton
+         text="Go back"
+         icon={() => <FontAwesome5 color="#fff" name="arrow-left" />}
+         onPress={goBack} />
+
+        <CustomRoundButton
+         text="Delete this note"
+         style={{marginBottom: 60, backgroundColor: '#B50800'}}
+         icon={() => <FontAwesome5 color="#fff" name="times" />}
+         onPress={deleteNote} />
+
       </View>
 
     </ScrollView>
@@ -53,16 +54,6 @@ const styles = StyleSheet.create({
  container: {
    padding: 20,
    paddingTop: 40
- },
-
- btn: {
-   width: '100%',
-   height: 40,
-   backgroundColor: '#293B5F',
-   alignItems: 'center',
-   justifyContent: 'center',
-   borderRadius: 20,
-   marginTop: 20
  },
 
  text: {

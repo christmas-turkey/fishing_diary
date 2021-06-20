@@ -1,7 +1,8 @@
 import React from 'react';
 import { TextInput, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
-export const CustomTextInput = ({type='textinput', ...props}) => {
+const CustomTextInput = ({type='textinput', ...props}) => {
 
   let stylesToApply = null
 
@@ -16,6 +17,10 @@ export const CustomTextInput = ({type='textinput', ...props}) => {
   return (
     <TextInput style={stylesToApply} {...props} />
   )
+}
+
+CustomTextInput.propTypes = {
+  type: PropTypes.string
 }
 
 const styles = StyleSheet.create({
@@ -37,3 +42,5 @@ const styles = StyleSheet.create({
   }
 
 })
+
+export { CustomTextInput }

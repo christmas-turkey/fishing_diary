@@ -1,22 +1,27 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import PropTypes from 'prop-types';
 
-export const RoundCornerButton = ({text, ...props}) => {
+const RoundCornerButton = ({text, ...props}) => {
 
   return (
     <TouchableOpacity 
        activeOpacity={0.8}
        {...props}
-       style={{...styles.main, ...props.style}}>
+       style={{...styles.default, ...props.style}}>
 
-      <Text style={{fontSize: 30, color: '#fff', fontWeight: 'bold'}}>{text}</Text>
+      <Text style={styles.text}>{text}</Text>
     
     </TouchableOpacity>
   )
 }
 
+RoundCornerButton.propTypes = {
+  text: PropTypes.string
+}
+
 const styles = StyleSheet.create({
-  main: {
+  default: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#293B5F',
@@ -26,5 +31,13 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     width: 60,
     height: 60
+  },
+
+  text: {
+    fontSize: 30,
+    color: '#fff',
+    fontWeight: 'bold'
   }
 })
+
+export { RoundCornerButton }

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList, Text } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { DiaryNote } from '../components/DiaryNote';
 import { fetch_diary_notes } from '../redux/actions/DiaryActions';
 import { navigate } from './../navigation/rootNavigation';
 import { RoundCornerButton } from './../components/RoundCornerButton';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { checkStatePresence } from './../utils/checkStatePresence';
 
 export const Diary = () => {
   
@@ -19,27 +19,22 @@ export const Diary = () => {
     setDataLoaded(true)
   }
 
-  const checkNotesPresence = () => {
-    if (!diaryNotes.length) {
-      return (
-        <Text style={styles.no_data}><MaterialCommunityIcons color="gray" size={25} name="folder-download" /> There are no notes</Text>
-      )
-    }
-  }
-
   return (
     <View style={styles.container}>
-      {checkNotesPresence()}
+
+      {checkStatePresence(diaryNotes, 'There are no notes yet!')}
       <FlatList
-      data={diaryNotes}
-      keyExtractor={item => item.id}
-      renderItem={({item}) => {
-       return (
-        <DiaryNote
-          onPress={() => navigate('Detail diary note', item)}
-          data={item} />
-       )
-      }} />
+        data={diaryNotes}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => {
+
+        return (
+          <DiaryNote
+            onPress={() => navigate('Detail diary note', item)}
+            data={item} />
+        )
+        }} />
+        
       <RoundCornerButton text="+" onPress={() => navigate('Add diary note')} />
     </View>
   )
@@ -48,14 +43,5 @@ export const Diary = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-
-  no_data: {
-    position: 'absolute',
-    top: '40%',
-    fontSize: 20,
-    color: 'gray',
-    fontFamily: 'roboto-medium',
-    alignSelf: 'center',
-  },
+  }
 })

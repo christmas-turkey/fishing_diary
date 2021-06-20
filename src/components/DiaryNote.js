@@ -2,11 +2,12 @@ import { Entypo, FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons'
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import PropTypes from 'prop-types';
 
-export const DiaryNote = ({data, ...props}) => {
+const DiaryNote = ({data, onPress}) => {
   return (
     <TouchableOpacity 
-      onPress={props.onPress} 
+      onPress={onPress} 
       activeOpacity={0.8} 
       style={styles.container}>
       
@@ -29,6 +30,11 @@ export const DiaryNote = ({data, ...props}) => {
       <FontAwesome5 color='#fff' size={25} name="arrow-right" />
     </TouchableOpacity>
   )
+}
+
+DiaryNote.propTypes = {
+  data: PropTypes.object,
+  onPress: PropTypes.func
 }
 
 const styles = StyleSheet.create({
@@ -66,3 +72,5 @@ const styles = StyleSheet.create({
     marginLeft: 10
   }
 })
+
+export { DiaryNote }

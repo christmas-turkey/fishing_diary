@@ -3,17 +3,17 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { remove_goal } from './../redux/actions/GoalsActions';
+import PropTypes from 'prop-types';
 
-export const Goal = ({data, ...props}) => {
+const Goal = ({data, onPress}) => {
   
   const dispatch = useDispatch()
 
   return (
     <TouchableOpacity
-      onPress={props.onPress}
       activeOpacity={0.8} 
       style={styles.rootContainer}
-      onPress={props.onPress}>
+      onPress={onPress}>
 
       <View style={styles.innerContainer}>
         <FontAwesome color="#fff" size={25} name="check-square" />
@@ -23,9 +23,12 @@ export const Goal = ({data, ...props}) => {
             {data.description.slice(0, 120) + (data.description.length > 120 ? '...' : '')}
           </Text>
             {Date.parse(data.date) - Date.now() > 0
-              ? <Text style={{...styles.text,marginTop: 10}}>
+
+              ? <Text style={styles.text}>
                 <Ionicons name="md-time" /> {data.date}</Text>
-              : <Text style={{...styles.text, fontFamily: 'roboto-medium', marginTop: 10, color: '#B52B00'}}>Overdue</Text> 
+              : <Text 
+                  style={{...styles.text, color: '#B52B00'}}>
+                  Overdue</Text> 
             }
         </View>
 
@@ -36,6 +39,11 @@ export const Goal = ({data, ...props}) => {
       </TouchableOpacity>
     </TouchableOpacity>
   )
+}
+
+Goal.propTypes = {
+  data: PropTypes.object,
+  onPress: PropTypes.func
 }
 
 const styles = StyleSheet.create({
@@ -57,15 +65,18 @@ const styles = StyleSheet.create({
     width: '70%'
   },
 
-  get label() {
-    return {
-      ...this.text,
-      fontSize: 15,
-      fontWeight: 'bold'
-    }
+  label: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: 'bold'
+
   },
 
   text: {
-    color: '#fff'
+    color: '#fff',
+    marginTop: 10,
+    fontFamily: 'roboto-medium'
   }
 })
+
+export { Goal }

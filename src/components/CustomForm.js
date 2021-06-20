@@ -1,13 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
+import { CustomRoundButton } from './CustomRoundButton';
 
-export const CustomForm = props => {
+const CustomForm = ({onSubmit, header, onCancel, ...props}) => {
 
   return (
     <ScrollView style={styles.container}>
       
-      <Text style={styles.header}>{props.header}</Text>
+      <Text style={styles.header}>{header}</Text>
       {props.children.map((value, index) => {
         return (
           <View style={styles.inputField} key={index+1}>
@@ -15,22 +17,27 @@ export const CustomForm = props => {
           </View>
         )
       })}
-      <TouchableOpacity
-        activeOpacity={0.8}
-        style={{...styles.btn, backgroundColor: '#293B5F'}}
-        onPress={props.onCancel} >
-        <Text style={{color: '#fff', fontWeight: 'bold'}}><FontAwesome5 color="#fff" name="arrow-left" />  Go back</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.8} 
-        style={{...styles.btn,
-                marginBottom: 40,
-                backgroundColor: '#00A900' }}
-        onPress={props.onSubmit} >
-        <Text style={{color: '#fff', fontWeight: 'bold'}}><FontAwesome5 color="#fff" name="check" />  Save</Text>
-      </TouchableOpacity>
+
+      <CustomRoundButton 
+          style={{backgroundColor: '#293B5F'}}
+          onPress={onCancel}
+          text="Go back"
+          icon={() => <FontAwesome5 color="#fff" name="arrow-left" />} />
+      
+      <CustomRoundButton 
+          style={{marginBottom: 40, backgroundColor: '#00A900'}}
+          onPress={onSubmit}
+          text="Save"
+          icon={() => <FontAwesome5 color="#fff" name="check" />} />
+
     </ScrollView>
   )
+}
+
+CustomForm.propTypes = {
+  header: PropTypes.string,
+  onCancel: PropTypes.func,
+  onSubmit: PropTypes.func
 }
 
 const styles = StyleSheet.create({
@@ -40,15 +47,6 @@ const styles = StyleSheet.create({
     margin: 20
   },
 
-  btn: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
-    height: 40,
-    borderRadius: 20
-  },
-  
   container: {
     padding: 10,
   },
@@ -60,3 +58,5 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
 })
+
+export { CustomForm }

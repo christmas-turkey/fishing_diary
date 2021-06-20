@@ -5,8 +5,10 @@ import Modal from 'react-native-modal';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import { save_photo } from '../redux/actions/PhotosActions';
+import PropTypes from 'prop-types';
 
-export const Camera = props => {
+export const Camera = ({isVisible, onClose}) => {
+
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(ExpoCamera.Constants.Type.back);
   const dispatch = useDispatch()
@@ -38,11 +40,11 @@ export const Camera = props => {
   return (
     <Modal
      style={styles.container}
-     isVisible={props.isVisible}>
+     isVisible={isVisible}>
       <ExpoCamera ref={cameraRef} style={styles.camera} type={type}>
 
           <TouchableOpacity
-            onPress={props.onClose}
+            onPress={onClose}
             style={styles.closeButton}>
 
             <AntDesign size={50} name="arrowleft" />
@@ -68,6 +70,11 @@ export const Camera = props => {
       </ExpoCamera>
     </Modal>
   );
+}
+
+Camera.propTypes = {
+  isVisible: PropTypes.bool,
+  onClose: PropTypes.func
 }
 
 const BUTTONS_MARGIN = 20

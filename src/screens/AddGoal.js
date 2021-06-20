@@ -9,12 +9,14 @@ import { save_goal } from '../redux/actions/GoalsActions';
 import { CustomTextInput } from './../components/CustomTextInput';
 import { validateInputsData } from '../utils/validateInputsData';
 import { CustomForm } from '../components/CustomForm';
+import { CustomRoundButton } from '../components/CustomRoundButton';
 
 export const AddGoal = () => {
 
   const [date, setDate] = useState(new Date(Date.now()))
   const [mode, setMode] = useState('date')
   const [show, setShow] = useState(false)
+
   const [description, setDescription] = useState('')
   const [datePlaceholder, setDatePlaceholder] = useState('Choose due date')
 
@@ -60,14 +62,11 @@ export const AddGoal = () => {
         numberOfLines={10}
         onChangeText={text => setDescription(text)}/>
 
-        <TouchableOpacity 
-          activeOpacity={0.8}
-          style={styles.dateButton}
-          onPress={() => showMode('date')}>
-          
-          <FontAwesome color="#fff" name="calendar-check-o" />  
-          <Text style={{color: '#fff', fontWeight: 'bold'}}>  {datePlaceholder}</Text>
-        </TouchableOpacity>
+      <CustomRoundButton
+        text={datePlaceholder}
+        style={styles.dateButton}
+        icon={() => <FontAwesome color="#fff" name="calendar-check-o" /> }
+        onPress={() => showMode('date')} />
 
       {show && (
       <DateTimePicker
@@ -86,7 +85,7 @@ export const AddGoal = () => {
 const styles = StyleSheet.create({
   dateButton: {
     height: 50,
-    width: '100%',
+    width: '90%',
     flexDirection: 'row',
     backgroundColor: '#47597E',
     alignItems: 'center',

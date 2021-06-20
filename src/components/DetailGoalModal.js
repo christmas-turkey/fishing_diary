@@ -2,34 +2,41 @@ import React from 'react'
 import { TouchableOpacity, View, Text, StyleSheet, ScrollView } from 'react-native'
 import Modal from 'react-native-modal'
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
 
-export const DetailGoalModal = props => {
+const DetailGoalModal = ({isVisible, data, onClose}) => {
   return (
     <Modal
-      style={styles.detailGoalModal}
+      style={styles.modal}
       animationIn={'fadeIn'}
       animationOut={'fadeOut'}
-      isVisible={props.isVisible}>
+      isVisible={isVisible}>
       
-      <View style={styles.detailGoalContent}>
+      <View style={styles.modalContent}>
 
-        <TouchableOpacity onPress={props.onClose}>
+        <TouchableOpacity onPress={onClose}>
           <FontAwesome5 color='gray' size={25} name="times" />
         </TouchableOpacity>
 
         <ScrollView style={{marginTop: 30}}>
-          <Text style={styles.modalText}><Ionicons name="md-time" /> {props.data.date}</Text>
-          <Text style={styles.modalText}>{props.data.description}</Text>
+          <Text style={styles.modalText}><Ionicons name="md-time" /> {data.date}</Text>
+          <Text style={styles.modalText}>{data.description}</Text>
         </ScrollView>
       </View>
 
     </Modal>
   )
-} 
+}
+
+DetailGoalModal.propTypes = {
+  isVisible: PropTypes.bool,
+  onClose: PropTypes.func,
+  data: PropTypes.object
+}
 
 const styles = StyleSheet.create({
-  detailGoalContent: {
+  modalContent: {
     width: '100%',
     height: '70%',
     padding: 25,
@@ -37,7 +44,7 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
 
-  detailGoalModal: {
+  modal: {
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -47,3 +54,5 @@ const styles = StyleSheet.create({
     marginBottom: 20
   }
 })
+
+export { DetailGoalModal }

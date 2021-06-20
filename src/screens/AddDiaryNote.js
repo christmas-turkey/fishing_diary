@@ -9,6 +9,7 @@ import { save_diary_note } from '../redux/actions/DiaryActions';
 import { CustomTextInput } from './../components/CustomTextInput';
 import { validateInputsData } from '../utils/validateInputsData';
 import { CustomForm } from '../components/CustomForm';
+import { CustomRoundButton } from '../components/CustomRoundButton';
 
 export const AddDiaryNote = () => {
 
@@ -16,7 +17,6 @@ export const AddDiaryNote = () => {
   const [mode, setMode] = useState('date')
   const [show, setShow] = useState(false)
   const [label, setLabel] = useState('')
-  const [weight, setWeight] = useState('')
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
   const [datePlaceholder, setDatePlaceholder] = useState('Choose date') 
@@ -38,12 +38,11 @@ export const AddDiaryNote = () => {
   }
 
   const saveNote = () => {
-    if (validateInputsData([label, weight, location, description])) {
+    if (validateInputsData([label, location, description])) {
       goBack()
       dispatch(save_diary_note({
         id: (Date.now() * Math.random()).toString(),
         label: label,
-        weight: weight,
         description: description,
         location: location,
         date: date.toLocaleDateString()
@@ -61,11 +60,6 @@ export const AddDiaryNote = () => {
         placeholder="Enter label"
         maxLength={100}
         onChangeText={text => setLabel(text)} />         
-      <CustomTextInput 
-        placeholder="Enter weight"
-        maxLength={40}
-        keyboardType="numeric"
-        onChangeText={text => setWeight(text)} />
       <CustomTextInput
         placeholder="Enter location"
         maxLength={50}
@@ -78,14 +72,12 @@ export const AddDiaryNote = () => {
           numberOfLines={10}
           onChangeText={text => setDescription(text)}/>
       
-        <TouchableOpacity 
-          activeOpacity={0.8}
-          style={styles.dateButton}
-          onPress={() => showMode('date')}>
-          
-          <FontAwesome color="#fff" name="calendar-check-o" />  
-          <Text style={{color: '#fff', fontWeight: 'bold'}}>  {datePlaceholder}</Text>
-        </TouchableOpacity>
+      <CustomRoundButton
+        text={datePlaceholder}
+        style={styles.dateButton}
+        icon={() => <FontAwesome color="#fff" name="calendar-check-o" /> }
+        onPress={() => showMode('date')} />
+
         {show && (
         <DateTimePicker
           testID="dateTimePicker"
@@ -103,7 +95,7 @@ export const AddDiaryNote = () => {
 const styles = StyleSheet.create({
   dateButton: {
     height: 50,
-    width: '100%',
+    width: '90%',
     flexDirection: 'row',
     backgroundColor: '#47597E',
     alignItems: 'center',

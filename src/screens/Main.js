@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetch_diary_notes } from '../redux/actions/DiaryActions';
 import { fetch_goals } from '../redux/actions/GoalsActions';
@@ -8,6 +8,7 @@ import { Goal } from './../components/Goal';
 import { DetailGoalModal } from './../components/DetailGoalModal';
 import { navigate } from './../navigation/rootNavigation';
 import { FontAwesome } from '@expo/vector-icons';
+import { CustomRoundButton } from '../components/CustomRoundButton';
 
 export const Main = () => {
 
@@ -29,21 +30,20 @@ export const Main = () => {
     <ScrollView style={styles.container}>
       <View>
         <Text style={styles.header}>Your last notes</Text>
-        {diaryNotes.map(note => {
+        {diaryNotes.map(data => {
           return (
             <DiaryNote 
-              data={note}
-              key={note.id}
-              onPress={() => navigate('Detail diary note', note)} />
+              data={data}
+              key={data.id}
+              onPress={() => navigate('Detail diary note', data)} />
           )
         })}
 
-        <TouchableOpacity 
+        <CustomRoundButton 
           onPress={() => navigate('Add diary note')}
-          activeOpacity={0.8} 
-          style={styles.btn}>
-          <Text style={{color: '#fff', fontWeight: 'bold'}}><FontAwesome color="#fff" name="plus" />  Add note</Text>
-        </TouchableOpacity>
+          text="Add note"
+          icon={() => <FontAwesome color="#fff" name="plus" /> } />
+
       </View>
       <View style={{marginBottom: 20}}>
         <Text style={styles.header}>Your last goals</Text>
@@ -59,12 +59,10 @@ export const Main = () => {
           )
         })}
 
-        <TouchableOpacity 
-          activeOpacity={0.8} 
-          style={styles.btn}
-          onPress={() => navigate('Add goal')}>
-          <Text style={{color: '#fff', fontWeight: 'bold'}}><FontAwesome color="#fff" name="plus" />  Add goal</Text>
-        </TouchableOpacity>
+        <CustomRoundButton 
+          onPress={() => navigate('Add goal')}
+          text="Add goal"
+          icon={() => <FontAwesome color="#fff" name="plus" /> } />
 
         <DetailGoalModal 
           onClose={() => setDetailGoalModalVisible(false)}
@@ -84,16 +82,6 @@ const styles = StyleSheet.create({
     margin: 20,
     fontSize: 25,
     fontFamily: 'OpenSans-bold'
-  },
-  
-  btn: {
-    margin: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#44619D',
-    marginTop: 20,
-    height: 40,
-    borderRadius: 15
   },
 
 })

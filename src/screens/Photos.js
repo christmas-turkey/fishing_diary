@@ -7,6 +7,8 @@ import Modal from 'react-native-modal'
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker'
 import { Camera } from './../components/Camera';
+import PropTypes from 'prop-types'
+import { checkStatePresence } from './../utils/checkStatePresence';
 
 const FullPhoto = props => {
 
@@ -27,6 +29,12 @@ const FullPhoto = props => {
       </TouchableOpacity>
     </Modal>
   )
+}
+
+FullPhoto.propTypes = {
+  isVisible: PropTypes.bool,
+  onClose: PropTypes.func,
+  uri: PropTypes.string
 }
 
 export const Photos = () => {
@@ -62,6 +70,9 @@ export const Photos = () => {
 
   return (
     <View style={styles.container}>
+      
+      {checkStatePresence(photos, 'There are no photos yet!')}
+
       <FlatList
       data={photos}
       keyExtractor={item => item.id}
@@ -118,7 +129,8 @@ export const Photos = () => {
       </Modal>
       <FullPhoto
         isVisible={fullPhotoVisible} 
-        onClose={() => setFullPhotoVisible(false)} uri={fullPhotoURI} />
+        onClose={() => setFullPhotoVisible(false)}
+        uri={fullPhotoURI} />
 
       <Camera 
         onClose={() => setCameraVisible(false)}
