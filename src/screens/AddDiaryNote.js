@@ -19,7 +19,7 @@ export const AddDiaryNote = () => {
   const [label, setLabel] = useState('')
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
-  const [datePlaceholder, setDatePlaceholder] = useState('Choose date') 
+  const [datePlaceholder, setDatePlaceholder] = useState('Виберіть дату') 
 
   const dispatch = useDispatch()
 
@@ -52,23 +52,23 @@ export const AddDiaryNote = () => {
 
   return (
     <CustomForm 
-      header="Add diary note"
+      header="Додати запис"
       onCancel={() => goBack()}
       onSubmit={saveNote}>
 
       <CustomTextInput
-        placeholder="Enter label"
+        placeholder="Введіть заголовок"
         maxLength={100}
         onChangeText={text => setLabel(text)} />         
       <CustomTextInput
-        placeholder="Enter location"
+        placeholder="Введіть локацію"
         maxLength={50}
         onChangeText={text => setLocation(text)} />
       <CustomTextInput
           type="textarea"
           multiline={true}
           maxLength={1500}
-          placeholder="Enter description"
+          placeholder="Введіть опис"
           numberOfLines={10}
           onChangeText={text => setDescription(text)}/>
       

@@ -29,16 +29,16 @@ export const DetailDiaryNote = ({route}) => {
       <Text style={styles.text}>
         <FontAwesome size={ICONS_SIZE} name="calendar-check-o" />  { item.date }
       </Text>
-      <Text style={styles.text}>Description: { item.description }</Text>
+      <Text style={styles.text}>Опис: { item.description }</Text>
       
       <View style={{marginTop: 40}}>
         <CustomRoundButton
-         text="Go back"
+         text="Назад"
          icon={() => <FontAwesome5 color="#fff" name="arrow-left" />}
          onPress={goBack} />
 
         <CustomRoundButton
-         text="Delete this note"
+         text="Видалити запис"
          style={{marginBottom: 60, backgroundColor: '#B50800'}}
          icon={() => <FontAwesome5 color="#fff" name="times" />}
          onPress={deleteNote} />

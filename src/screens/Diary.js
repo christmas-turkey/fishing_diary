@@ -22,7 +22,7 @@ export const Diary = () => {
   return (
     <View style={styles.container}>
 
-      {checkStatePresence(diaryNotes, 'There are no notes yet!')}
+      {checkStatePresence(diaryNotes, 'Ви не додали записів!')}
       <FlatList
         data={diaryNotes}
         keyExtractor={item => item.id}

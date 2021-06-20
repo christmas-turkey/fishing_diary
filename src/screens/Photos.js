@@ -71,7 +71,7 @@ export const Photos = () => {
   return (
     <View style={styles.container}>
       
-      {checkStatePresence(photos, 'There are no photos yet!')}
+      {checkStatePresence(photos, 'Ви не додали фото!')}
 
       <FlatList
       data={photos}
@@ -113,7 +113,7 @@ export const Photos = () => {
             onPress={() => setCameraVisible(true)}>
 
             <MaterialIcons size={18} name='add-a-photo' />
-            <Text>  Make photo</Text>
+            <Text>  Зробити фото</Text>
 
           </TouchableOpacity>
           <TouchableOpacity 
@@ -121,7 +121,7 @@ export const Photos = () => {
             onPress={pickFile}>
 
             <MaterialIcons size={18} name='add-photo-alternate' /> 
-            <Text>  Load from gallery</Text>
+            <Text>  Завантажити з галереї</Text>
 
           </TouchableOpacity>
         </View>

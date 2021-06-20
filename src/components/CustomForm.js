@@ -21,13 +21,13 @@ const CustomForm = ({onSubmit, header, onCancel, ...props}) => {
       <CustomRoundButton 
           style={{backgroundColor: '#293B5F'}}
           onPress={onCancel}
-          text="Go back"
+          text="Назад"
           icon={() => <FontAwesome5 color="#fff" name="arrow-left" />} />
       
       <CustomRoundButton 
           style={{marginBottom: 40, backgroundColor: '#00A900'}}
           onPress={onSubmit}
-          text="Save"
+          text="Зберегти"
           icon={() => <FontAwesome5 color="#fff" name="check" />} />
 
     </ScrollView>

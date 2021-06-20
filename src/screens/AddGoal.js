@@ -18,7 +18,7 @@ export const AddGoal = () => {
   const [show, setShow] = useState(false)
 
   const [description, setDescription] = useState('')
-  const [datePlaceholder, setDatePlaceholder] = useState('Choose due date')
+  const [datePlaceholder, setDatePlaceholder] = useState('Виберіть кінцеву дату')
 
   const dispatch = useDispatch()
 
@@ -50,7 +50,7 @@ export const AddGoal = () => {
   return (
 
     <CustomForm 
-      header="Add a goal"
+      header="Додати ціль"
       onCancel={() => goBack()}
       onSubmit={saveGoal}>
 
@@ -58,7 +58,7 @@ export const AddGoal = () => {
         type="textarea"
         multiline={true}
         maxLength={1500}
-        placeholder="Enter description"
+        placeholder="Введіть опис"
         numberOfLines={10}
         onChangeText={text => setDescription(text)}/>
 

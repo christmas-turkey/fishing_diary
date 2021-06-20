@@ -51,11 +51,11 @@ export const DrawerNavigator = () => {
         );
       }}>
 
-    <Drawer.Screen name="Main" component={Main} options={getScreenOptions('Main', 'home')}/>
+    <Drawer.Screen name="Main" component={Main} options={getScreenOptions('Головна', 'home')}/>
     
-    <Drawer.Screen name="Diary" component={Diary} options={getScreenOptions('Diary', 'calendar-plus')} />
-    <Drawer.Screen name="Photos" component={Photos} options={getScreenOptions('Photos', 'image')} />
-    <Drawer.Screen name="Fishing goals" component={Goals} options={getScreenOptions('Goals', 'bullseye')} />
+    <Drawer.Screen name="Diary" component={Diary} options={getScreenOptions('Щоденник', 'calendar-plus')} />
+    <Drawer.Screen name="Photos" component={Photos} options={getScreenOptions('Фото', 'image')} />
+    <Drawer.Screen name="Fishing goals" component={Goals} options={getScreenOptions('Цілі', 'bullseye')} />
     <Drawer.Screen name="Add diary note" component={AddDiaryNote} />
     <Drawer.Screen name="Add goal" component={AddGoal} />
     <Drawer.Screen name="Detail diary note" component={DetailDiaryNote} />

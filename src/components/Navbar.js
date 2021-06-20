@@ -7,11 +7,11 @@ export const Navbar = () => {
   
   return (
     <View style={styles.navbar_container}>
-      <View style={{flexDirection: 'row'}}>
+      <View style={styles.innerContainer}>
         <TouchableOpacity onPress={openDrawer}>
           <FontAwesome5 style={styles.bars} name="bars" />
         </TouchableOpacity>
-        <Text style={styles.logo}><FontAwesome5 style={styles.logo} name="fish" />  Fishing diary</Text>
+        <Text style={styles.logo}><FontAwesome5 style={styles.logo} name="fish" />  Щоденник рибалки</Text>
       </View>
     </View>
   )
@@ -20,7 +20,7 @@ export const Navbar = () => {
 const styles = StyleSheet.create({
   logo: {
     marginLeft: 30,
-    fontSize: 25,
+    fontSize: 18,
     color: '#fff',
     fontFamily: 'OpenSans-bold'
   },
@@ -32,7 +32,11 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     height: 150,
     justifyContent: 'center',
-    alignContent: 'center',
     backgroundColor: '#293B5F'
+  },
+
+  innerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 })

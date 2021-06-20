@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   text: {
     position: 'absolute',
     top: '40%',
-    fontSize: 20,
+    fontSize: 17,
     color: 'gray',
     fontFamily: 'roboto-medium',
     alignSelf: 'center',

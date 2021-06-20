@@ -29,7 +29,7 @@ export const Main = () => {
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Text style={styles.header}>Your last notes</Text>
+        <Text style={styles.header}>Ваші останні записи</Text>
         {diaryNotes.map(data => {
           return (
             <DiaryNote 
@@ -41,12 +41,12 @@ export const Main = () => {
 
         <CustomRoundButton 
           onPress={() => navigate('Add diary note')}
-          text="Add note"
+          text="Додати запис"
           icon={() => <FontAwesome color="#fff" name="plus" /> } />
 
       </View>
       <View style={{marginBottom: 20}}>
-        <Text style={styles.header}>Your last goals</Text>
+        <Text style={styles.header}>Ваші останні цілі</Text>
         {goals.map(goal => {
           return (
             <Goal 
@@ -61,7 +61,7 @@ export const Main = () => {
 
         <CustomRoundButton 
           onPress={() => navigate('Add goal')}
-          text="Add goal"
+          text="Додати ціль"
           icon={() => <FontAwesome color="#fff" name="plus" /> } />
 
         <DetailGoalModal 
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   header: {
     margin: 20,
-    fontSize: 25,
+    fontSize: 18,
     fontFamily: 'OpenSans-bold'
   },
 

@@ -24,7 +24,7 @@ export const Goals = () => {
 
   return (
     <View style={styles.container}>
-      {checkStatePresence(goals, 'There are no goals yet!')}
+      {checkStatePresence(goals, 'Ви не додали цілей!')}
       <FlatList
         data={goals}
         keyExtractor={item => item.id}
