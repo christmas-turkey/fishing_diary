@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   header: {
     margin: 20,
-    fontSize: 25,
+    fontSize: 18,
     fontFamily: 'OpenSans-bold'
   },
 

@@ -7,7 +7,7 @@ export const Navbar = () => {
   
   return (
     <View style={styles.navbar_container}>
-      <View style={{flexDirection: 'row'}}>
+      <View style={styles.innerContainer}>
         <TouchableOpacity onPress={openDrawer}>
           <FontAwesome5 style={styles.bars} name="bars" />
         </TouchableOpacity>
@@ -20,7 +20,7 @@ export const Navbar = () => {
 const styles = StyleSheet.create({
   logo: {
     marginLeft: 30,
-    fontSize: 25,
+    fontSize: 18,
     color: '#fff',
     fontFamily: 'OpenSans-bold'
   },
@@ -34,5 +34,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     backgroundColor: '#293B5F'
+  },
+
+  innerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 })
