@@ -13,13 +13,13 @@ npm install -g expo
 ### Install dependencies
 
 ```
-expo install 
+npm install 
 ```
 
 ### Start development server
 
 ```
-expo start
+npm start
 ```
 
 ### Install 'Expo Go' app on your device
